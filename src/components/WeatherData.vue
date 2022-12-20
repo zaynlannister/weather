@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="weather">
-      <div class="weather-date">Dec 6, 08:24am</div>
+      <div class="weather-date">{{ date }}</div>
       <div class="weather-city">London</div>
       <div class="weather-temp">
         <img src="@/assets/clouds.svg">
@@ -15,7 +15,36 @@
 <script>
 export default {
   props: {
-    weatherDate: Object
+    date: Object,
+    cityName: String
+  },
+
+  data() {
+    return {
+      weatherDate: {}
+    }
+  },
+
+  methods: {
+    kelvinToCelsius(temp) {
+      return temp - 273;
+    },
+
+    fetchWeatherDate(city) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`
+
+      try {
+        fetch(url)
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              this.weatherDate = data;
+            })
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 }
 </script>

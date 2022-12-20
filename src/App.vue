@@ -5,12 +5,15 @@
       <search-form @click="getGeoOfCity" v-model="cityName"/>
     </div>
   </div>
-  <app-weather :data="weatherDate"/>
+  <app-weather
+    :date="date"
+    :cityName="cityName"
+  />
 </template>
 
 <script>
 import SearchForm from "@/components/SearchForm.vue";
-import AppWeather from "@/components/AppWeather.vue";
+import AppWeather from "@/components/WeatherData.vue";
 
 export default {
   components: {
@@ -22,15 +25,12 @@ export default {
     return {
       cityName: "",
       weatherDate: {},
-      apiKey: "265a6bf77fad2b8dce59e0abce8a30d7"
+      apiKey: "265a6bf77fad2b8dce59e0abce8a30d7",
+      date: new Date()
     }
   },
 
   methods: {
-    kelvinToCelsius(temp) {
-      return temp - 273;
-    },
-
     isValidInput() {
       return this.cityName.trim().length !== 0;
     },
@@ -58,20 +58,20 @@ export default {
     },
 
     fetchWeatherDate(city) {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`
-
-      try {
-        fetch(url)
-            .then(response => {
-              return response.json()
-            })
-            .then(data => {
-              this.weatherDate = data;
-              console.log(this.weatherDate)
-            })
-      } catch (err) {
-        console.log(err)
-      }
+      // const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`
+      //
+      // try {
+      //   fetch(url)
+      //       .then(response => {
+      //         return response.json()
+      //       })
+      //       .then(data => {
+      //         this.weatherDate = data;
+      //         console.log(this.weatherDate)
+      //       })
+      // } catch (err) {
+      //   console.log(err)
+      // }
     }
   }
 }
