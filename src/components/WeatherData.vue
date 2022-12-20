@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="weatherData.main">
     <div class="weather">
       <div class="weather-date">{{ date }}</div>
-      <div class="weather-city">London</div>
+      <div class="weather-city">{{ weatherData.name }}</div>
       <div class="weather-temp">
         <img src="@/assets/clouds.svg">
-        <span>3°C</span>
+        <span>{{ kelvinToCelsius(weatherData.main.temp) }}°C</span>
       </div>
-      <div class="weather-info">Fells like 2°C. Broken clouds. Light air</div>
+      <div class="weather-info">Fells like {{ kelvinToCelsius(weatherData.main.feels_like) }}°C. {{ weatherData.weather[0].description }}</div>
     </div>
   </div>
 </template>
@@ -16,34 +16,19 @@
 export default {
   props: {
     date: Object,
-    cityName: String
+    cityName: String,
+    weatherData: Object
   },
 
   data() {
     return {
-      weatherDate: {}
+      temp: Number
     }
   },
 
   methods: {
     kelvinToCelsius(temp) {
-      return temp - 273;
-    },
-
-    fetchWeatherDate(city) {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`
-
-      try {
-        fetch(url)
-            .then(response => {
-              return response.json()
-            })
-            .then(data => {
-              this.weatherDate = data;
-            })
-      } catch (err) {
-        console.log(err)
-      }
+      return (temp - 273).toFixed(0)
     }
   }
 }
