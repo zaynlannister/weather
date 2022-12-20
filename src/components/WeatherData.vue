@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-if="weatherData.main">
     <div class="weather">
-      <div class="weather-date">{{ date }}</div>
+      <div class="weather-date">{{ date.toLocaleString() }}</div>
       <div class="weather-city">{{ weatherData.name }}</div>
       <div class="weather-temp">
         <img src="@/assets/clouds.svg">
