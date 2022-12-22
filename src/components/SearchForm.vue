@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="value" @input="changeValue" class="input" type="text" placeholder="Search city">
-    <button class="button">Search</button>
+    <button @click="$emit('search')" class="button">Search</button>
   </div>
 </template>
 

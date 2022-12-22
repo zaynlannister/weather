@@ -2,9 +2,13 @@
   <div class="header">
     <div class="container">
       <img class="header-logo" src="@/assets/weather-logo.png">
-      <search-form @click="getGeoOfCity" v-model="cityName"/>
+      <search-form
+        @search="getGeoOfCity"
+        v-model="cityName"
+      />
     </div>
   </div>
+
   <weather-data
     :date="date"
     :cityName="cityName"
@@ -27,7 +31,8 @@ export default {
       cityName: "",
       weatherData: {},
       apiKey: "265a6bf77fad2b8dce59e0abce8a30d7",
-      date: new Date()
+      date: new Date(),
+      isLoading: false
     }
   },
 
