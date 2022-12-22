@@ -8,7 +8,8 @@
 <script>
 export default {
   props: {
-    modelValue: String
+    modelValue: String,
+    isLoading: Boolean
   },
 
   data() {

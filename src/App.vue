@@ -5,11 +5,16 @@
       <search-form
         @search="getGeoOfCity"
         v-model="cityName"
+        :isLoading="isLoading"
       />
     </div>
   </div>
 
+  <div class="container" v-if="isLoading">
+    <div class="loading">Loading...</div>
+  </div>
   <weather-data
+    v-else
     :date="date"
     :cityName="cityName"
     :weatherData="weatherData"
@@ -43,40 +48,43 @@ export default {
 
     getGeoOfCity() {
       if (this.isValidInput()) {
-        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${this.cityName}&limit=1&appid=${this.apiKey}`
+        this.isLoading = true;
+
+        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${this.cityName}&limit=1&appid=${this.apiKey}`;
 
         try {
           fetch(url)
               .then(response => {
-                return response.json()
+                return response.json();
               })
               .then(data => {
                 if (data.length !== 0) {
-                  this.fetchWeatherDate(data)
+                  this.fetchWeatherDate(data);
+                  this.isLoading = false;
                 } else {
-                  alert("Город не найден")
+                  alert("Город не найден");
                 }
               })
         } catch (err) {
-          console.error(err)
+          console.error(err);
         }
       }
     },
 
     fetchWeatherDate(city) {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city[0].lat}&lon=${city[0].lon}&appid=${this.apiKey}`;
 
       try {
         fetch(url)
             .then(response => {
-              return response.json()
+              return response.json();
             })
             .then(data => {
               this.weatherData = data;
-              this.weatherData = Object.assign({}, this.weatherData, data)
+              this.weatherData = Object.assign({}, this.weatherData, data);
             })
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     }
   }
@@ -104,5 +112,9 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 20px 0;
+  }
+
+  .loading {
+    padding-top: 10px;
   }
 </style>
