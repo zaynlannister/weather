@@ -98,7 +98,7 @@ export default {
   }
 
   .header {
-    background-color: #ededed;
+    border-bottom: 1px solid #b6b6b6;
   }
 
   .header-logo {
