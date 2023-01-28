@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @keydown.enter="$emit('search')" v-model="value" @input="changeValue" class="input" type="text" placeholder="Search city">
+    <input @keydown.enter="$emit('search')" v-model="value" @input="changeValue" class="input header__input" type="text" placeholder="Search city">
     <button @click="$emit('search')" class="button">Search</button>
   </div>
 </template>
@@ -55,5 +55,11 @@ export default {
 
   .button:hover {
     background-color: #717070;
+  }
+
+  @media (max-width: 590px) {
+    .header__input {
+      width: unset;
+    }
   }
 </style>

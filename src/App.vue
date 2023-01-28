@@ -112,10 +112,22 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 0;
+    padding: 20px;
   }
 
   .loading {
     padding-top: 10px;
+  }
+
+  @media (max-width: 1150px) {
+    .container {
+      width: unset;
+    }
+  }
+
+  @media (max-width: 1500px) {
+    html body {
+      background-size: unset;
+    }
   }
 </style>
