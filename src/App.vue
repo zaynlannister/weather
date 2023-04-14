@@ -63,6 +63,7 @@ export default {
                   this.isLoading = false;
                 } else {
                   alert("Город не найден");
+                  this.isLoading = false;
                 }
               })
         } catch (err) {
